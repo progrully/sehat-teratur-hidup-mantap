@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Heart, Calendar, Language } from "lucide-react";
+import { Heart, Calendar, Globe } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 const EducationalContent = () => {
@@ -34,7 +34,7 @@ const EducationalContent = () => {
 
           <Card className="shadow-md overflow-hidden card-hover">
             <div className="h-40 bg-imo-green p-6 flex items-center justify-center">
-              <Medicine className="h-16 w-16 text-white" />
+              <Pill className="h-16 w-16 text-white" />
             </div>
             <CardContent className="p-6">
               <h3 className="font-bold text-lg mb-2">Pentingnya Kepatuhan Minum Obat</h3>
@@ -99,7 +99,7 @@ const EducationalContent = () => {
 
             <div className="text-center">
               <div className="inline-block p-6 bg-white rounded-full shadow-lg mb-4">
-                <Language className="h-24 w-24 text-imo-blue" />
+                <Globe className="h-24 w-24 text-imo-blue" />
               </div>
               <h3 className="text-xl font-bold mb-2">Konsultasi dengan Dokter</h3>
               <p className="text-gray-600 mb-4">
@@ -116,8 +116,8 @@ const EducationalContent = () => {
   );
 };
 
-// Add Medicine component (pill icon)
-const Medicine = ({ className }: { className?: string }) => (
+// Add Pill component (pill icon)
+const Pill = ({ className }: { className?: string }) => (
   <svg 
     xmlns="http://www.w3.org/2000/svg" 
     viewBox="0 0 24 24" 

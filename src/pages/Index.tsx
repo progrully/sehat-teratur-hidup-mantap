@@ -5,7 +5,7 @@ import MedicationReminder from "@/components/MedicationReminder";
 import EducationalContent from "@/components/EducationalContent";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Medicine, Heart, CalendarCheck } from "lucide-react";
+import { Heart, CalendarCheck } from "lucide-react";
 
 const Index = () => {
   return (
@@ -41,7 +41,7 @@ const Index = () => {
                 <div className="absolute -bottom-4 -right-4 w-16 h-16 rounded-full bg-imo-green animate-pulse-slow"></div>
                 <div className="bg-white p-6 rounded-lg shadow-xl card-hover">
                   <div className="flex items-center justify-center w-60 h-60">
-                    <Medicine className="h-40 w-40 text-imo-blue" />
+                    <PillIcon className="h-40 w-40 text-imo-blue" />
                   </div>
                 </div>
               </div>
@@ -85,7 +85,7 @@ const Index = () => {
             
             <div className="text-center p-6 bg-white rounded-lg shadow-md card-hover">
               <div className="inline-flex items-center justify-center w-16 h-16 mb-6 bg-blue-100 rounded-full">
-                <Medicine className="h-8 w-8 text-imo-blue" />
+                <PillIcon className="h-8 w-8 text-imo-blue" />
               </div>
               <h3 className="text-xl font-bold mb-3">Informasi Obat Lengkap</h3>
               <p className="text-gray-600">
@@ -121,5 +121,22 @@ const Index = () => {
     </div>
   );
 };
+
+// Custom Pill icon component
+const PillIcon = ({ className }: { className?: string }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    className={className}
+  >
+    <path d="M10.5 20H4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h7l-3.5 17z"></path>
+    <path d="M20 8h-7l3.5 17h3.5a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2z"></path>
+  </svg>
+);
 
 export default Index;
