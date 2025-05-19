@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import MedicationReminder from "@/components/MedicationReminder";
 import EducationalContent from "@/components/EducationalContent";
@@ -27,11 +28,11 @@ const Index = () => {
                 Solusi terbaik untuk meningkatkan kepatuhan minum obat hipertensi secara teratur demi kesehatan yang optimal.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Button size="lg" className="bg-white text-imo-blue hover:bg-blue-50">
-                  Mulai Sekarang
+                <Button size="lg" className="bg-white text-imo-blue hover:bg-blue-50" asChild>
+                  <Link to="/login">Mulai Sekarang</Link>
                 </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-                  Pelajari Lebih Lanjut
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" asChild>
+                  <a href="#tentang">Pelajari Lebih Lanjut</a>
                 </Button>
               </div>
             </div>
@@ -111,8 +112,8 @@ const Index = () => {
           <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
             Bergabunglah dengan Program IMO MANTAP dan tingkatkan kualitas hidup Anda dengan pengelolaan hipertensi yang lebih baik.
           </p>
-          <Button size="lg" className="bg-white text-imo-blue hover:bg-blue-50">
-            Daftar Sekarang
+          <Button size="lg" className="bg-white text-imo-blue hover:bg-blue-50" asChild>
+            <Link to="/login">Daftar Sekarang</Link>
           </Button>
         </div>
       </section>
