@@ -3,80 +3,7 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CalendarCheck, Heart, User } from "lucide-react";
-
-const PatientDashboard = ({ user }: { user: any }) => {
-  return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader className="bg-imo-lightBlue text-imo-darkText">
-          <CardTitle className="flex items-center gap-2">
-            <User className="h-5 w-5" />
-            Selamat Datang, {user.name || "Pasien"}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="pt-6">
-          <p className="mb-4">
-            Selamat datang di Dashboard Pasien IMO MANTAP. Di sini Anda dapat memantau jadwal
-            pengobatan, melacak tekanan darah, dan mengakses informasi kesehatan penting.
-          </p>
-        </CardContent>
-      </Card>
-
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <Card className="card-hover">
-          <CardHeader className="bg-imo-blue pb-2 text-white">
-            <CardTitle className="text-lg flex items-center gap-2">
-              <CalendarCheck className="h-5 w-5" /> 
-              Jadwal Pengobatan
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-4">
-            <p className="text-sm text-gray-600 mb-4">
-              Lihat dan kelola jadwal minum obat hipertensi Anda.
-            </p>
-            <Button className="w-full bg-imo-blue text-white">
-              Lihat Jadwal
-            </Button>
-          </CardContent>
-        </Card>
-
-        <Card className="card-hover">
-          <CardHeader className="bg-imo-green pb-2 text-white">
-            <CardTitle className="text-lg flex items-center gap-2">
-              <Heart className="h-5 w-5" />
-              Pemantauan Tekanan Darah
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-4">
-            <p className="text-sm text-gray-600 mb-4">
-              Catat dan pantau riwayat tekanan darah Anda.
-            </p>
-            <Button className="w-full bg-imo-green text-white">
-              Catat Tekanan Darah
-            </Button>
-          </CardContent>
-        </Card>
-
-        <Card className="card-hover">
-          <CardHeader className="bg-imo-blue pb-2 text-white">
-            <CardTitle className="text-lg flex items-center gap-2">
-              <PillIcon className="h-5 w-5" />
-              Informasi Obat
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-4">
-            <p className="text-sm text-gray-600 mb-4">
-              Akses informasi tentang obat hipertensi Anda.
-            </p>
-            <Button className="w-full bg-imo-blue text-white">
-              Lihat Informasi
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  );
-};
+import { toast } from "sonner";
 
 // Custom Pill icon component
 const PillIcon = ({ className }: { className?: string }) => (
@@ -94,5 +21,101 @@ const PillIcon = ({ className }: { className?: string }) => (
     <path d="M20 8h-7l3.5 17h3.5a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2z"></path>
   </svg>
 );
+
+const PatientDashboard = ({ user }: { user: any }) => {
+  // Handler functions
+  const handleViewSchedule = () => {
+    toast.success("Jadwal pengobatan Anda akan segera ditampilkan!");
+  };
+  
+  const handleRecordBloodPressure = () => {
+    toast.success("Fitur pencatatan tekanan darah akan segera tersedia!");
+  };
+  
+  const handleViewMedInfo = () => {
+    toast.success("Informasi obat akan segera tersedia!");
+  };
+  
+  return (
+    <div className="space-y-6">
+      <Card className="border-imo-blue shadow-md">
+        <CardHeader className="bg-gradient-to-r from-imo-lightBlue to-blue-100 text-imo-darkText">
+          <CardTitle className="flex items-center gap-2">
+            <User className="h-5 w-5 text-imo-blue" />
+            Selamat Datang, {user.name || "Pasien"}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="pt-6">
+          <p className="mb-4">
+            Selamat datang di Dashboard Pasien IMO MANTAP. Di sini Anda dapat memantau jadwal
+            pengobatan, melacak tekanan darah, dan mengakses informasi kesehatan penting.
+          </p>
+        </CardContent>
+      </Card>
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <Card className="card-hover shadow-md border-imo-blue">
+          <CardHeader className="bg-gradient-to-r from-imo-blue to-blue-600 pb-2 text-white">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <CalendarCheck className="h-5 w-5" /> 
+              Jadwal Pengobatan
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pt-4">
+            <p className="text-sm text-gray-600 mb-4">
+              Lihat dan kelola jadwal minum obat hipertensi Anda.
+            </p>
+            <Button 
+              className="w-full bg-imo-blue text-white hover:bg-blue-700"
+              onClick={handleViewSchedule}
+            >
+              Lihat Jadwal
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="card-hover shadow-md border-imo-green">
+          <CardHeader className="bg-gradient-to-r from-imo-green to-green-600 pb-2 text-white">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Heart className="h-5 w-5" />
+              Pemantauan Tekanan Darah
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pt-4">
+            <p className="text-sm text-gray-600 mb-4">
+              Catat dan pantau riwayat tekanan darah Anda.
+            </p>
+            <Button 
+              className="w-full bg-imo-green text-white hover:bg-green-700"
+              onClick={handleRecordBloodPressure}
+            >
+              Catat Tekanan Darah
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="card-hover shadow-md border-imo-blue">
+          <CardHeader className="bg-gradient-to-r from-imo-blue to-blue-600 pb-2 text-white">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <PillIcon className="h-5 w-5" />
+              Informasi Obat
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pt-4">
+            <p className="text-sm text-gray-600 mb-4">
+              Akses informasi tentang obat hipertensi Anda.
+            </p>
+            <Button 
+              className="w-full bg-imo-blue text-white hover:bg-blue-700"
+              onClick={handleViewMedInfo}
+            >
+              Lihat Informasi
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+};
 
 export default PatientDashboard;

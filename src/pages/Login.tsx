@@ -9,6 +9,7 @@ import { useAuth } from "@/hooks/useAuth";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
+import { UserRound, KeyRound } from "lucide-react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -42,58 +43,79 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-blue-50">
       <Navbar />
 
       <main className="flex-1 flex items-center justify-center py-12 px-4">
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center bg-imo-lightBlue">
-            <CardTitle className="text-2xl font-bold">Masuk ke IMO MANTAP</CardTitle>
+        <Card className="w-full max-w-md shadow-lg">
+          <CardHeader className="text-center bg-imo-blue rounded-t-lg py-6">
+            <CardTitle className="text-2xl font-bold text-white">Masuk ke IMO MANTAP</CardTitle>
           </CardHeader>
           
-          <CardContent className="pt-6">
-            <form onSubmit={handleLogin} className="space-y-4">
+          <CardContent className="pt-6 pb-8 px-8">
+            <form onSubmit={handleLogin} className="space-y-5">
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="nama@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
+                <Label htmlFor="email" className="text-imo-darkText">Email</Label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                    <UserRound size={18} />
+                  </div>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="nama@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="pl-10"
+                    required
+                  />
+                </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
+                <Label htmlFor="password" className="text-imo-darkText">Password</Label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                    <KeyRound size={18} />
+                  </div>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="pl-10"
+                    required
+                  />
+                </div>
               </div>
 
               <Button
                 type="submit"
-                className="w-full bg-imo-blue text-white"
+                className="w-full bg-imo-blue hover:bg-blue-700 text-white py-2.5 mt-2"
                 disabled={loading}
               >
                 {loading ? "Memproses..." : "Masuk"}
               </Button>
             </form>
             
-            <div className="mt-4 text-center">
-              <p className="text-sm text-gray-600">
-                Demo accounts: <br />
-                <span className="font-semibold">pasien@example.com</span>, <br />
-                <span className="font-semibold">perawat@example.com</span>, <br />
-                <span className="font-semibold">admin@example.com</span> <br />
-                (password can be anything)
-              </p>
+            <div className="mt-6 pt-4 border-t border-gray-200">
+              <h3 className="text-center font-medium text-gray-600 mb-2">Demo Akun:</h3>
+              <div className="grid grid-cols-1 gap-2 text-sm">
+                <div className="p-2 bg-blue-50 rounded-md">
+                  <p className="font-semibold">Pasien:</p>
+                  <p className="text-gray-600">pasien@example.com</p>
+                </div>
+                <div className="p-2 bg-green-50 rounded-md">
+                  <p className="font-semibold">Perawat:</p>
+                  <p className="text-gray-600">perawat@example.com</p>
+                </div>
+                <div className="p-2 bg-purple-50 rounded-md">
+                  <p className="font-semibold">Admin:</p>
+                  <p className="text-gray-600">admin@example.com</p>
+                </div>
+                <p className="text-xs text-center text-gray-500 mt-1">(Password bisa diisi apapun)</p>
+              </div>
             </div>
           </CardContent>
         </Card>
