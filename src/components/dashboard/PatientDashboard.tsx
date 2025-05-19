@@ -2,8 +2,9 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CalendarCheck, Heart, User } from "lucide-react";
+import { Calendar, Heart, PlusCircle } from "lucide-react";
 import { toast } from "sonner";
+import { Link } from "react-router-dom";
 
 // Custom Pill icon component
 const PillIcon = ({ className }: { className?: string }) => (
@@ -23,17 +24,16 @@ const PillIcon = ({ className }: { className?: string }) => (
 );
 
 const PatientDashboard = ({ user }: { user: any }) => {
-  // Handler functions
   const handleViewSchedule = () => {
-    toast.success("Jadwal pengobatan Anda akan segera ditampilkan!");
+    toast.success("Jadwal pengobatan Anda ditampilkan!");
   };
   
   const handleRecordBloodPressure = () => {
-    toast.success("Fitur pencatatan tekanan darah akan segera tersedia!");
+    toast.success("Pencatatan tekanan darah berhasil dibuka!");
   };
   
   const handleViewMedInfo = () => {
-    toast.success("Informasi obat akan segera tersedia!");
+    toast.success("Informasi obat ditampilkan!");
   };
   
   return (
@@ -41,8 +41,8 @@ const PatientDashboard = ({ user }: { user: any }) => {
       <Card className="border-imo-blue shadow-md">
         <CardHeader className="bg-gradient-to-r from-imo-lightBlue to-blue-100 text-imo-darkText">
           <CardTitle className="flex items-center gap-2">
-            <User className="h-5 w-5 text-imo-blue" />
-            Selamat Datang, {user.name || "Pasien"}
+            <PlusCircle className="h-5 w-5 text-imo-blue" />
+            Selamat Datang, {user?.name || "Pasien"}
           </CardTitle>
         </CardHeader>
         <CardContent className="pt-6">
@@ -53,11 +53,11 @@ const PatientDashboard = ({ user }: { user: any }) => {
         </CardContent>
       </Card>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-3 gap-6">
         <Card className="card-hover shadow-md border-imo-blue">
-          <CardHeader className="bg-gradient-to-r from-imo-blue to-blue-600 pb-2 text-white">
+          <CardHeader className="bg-imo-blue text-white pb-2">
             <CardTitle className="text-lg flex items-center gap-2">
-              <CalendarCheck className="h-5 w-5" /> 
+              <Calendar className="h-5 w-5" /> 
               Jadwal Pengobatan
             </CardTitle>
           </CardHeader>
@@ -65,17 +65,19 @@ const PatientDashboard = ({ user }: { user: any }) => {
             <p className="text-sm text-gray-600 mb-4">
               Lihat dan kelola jadwal minum obat hipertensi Anda.
             </p>
-            <Button 
-              className="w-full bg-imo-blue text-white hover:bg-blue-700"
-              onClick={handleViewSchedule}
-            >
-              Lihat Jadwal
-            </Button>
+            <Link to="/medication-schedule">
+              <Button 
+                className="w-full bg-imo-blue text-white hover:bg-blue-700"
+                onClick={handleViewSchedule}
+              >
+                Lihat Jadwal
+              </Button>
+            </Link>
           </CardContent>
         </Card>
 
         <Card className="card-hover shadow-md border-imo-green">
-          <CardHeader className="bg-gradient-to-r from-imo-green to-green-600 pb-2 text-white">
+          <CardHeader className="bg-imo-green text-white pb-2">
             <CardTitle className="text-lg flex items-center gap-2">
               <Heart className="h-5 w-5" />
               Pemantauan Tekanan Darah
@@ -85,17 +87,19 @@ const PatientDashboard = ({ user }: { user: any }) => {
             <p className="text-sm text-gray-600 mb-4">
               Catat dan pantau riwayat tekanan darah Anda.
             </p>
-            <Button 
-              className="w-full bg-imo-green text-white hover:bg-green-700"
-              onClick={handleRecordBloodPressure}
-            >
-              Catat Tekanan Darah
-            </Button>
+            <Link to="/blood-pressure">
+              <Button 
+                className="w-full bg-imo-green text-white hover:bg-green-700"
+                onClick={handleRecordBloodPressure}
+              >
+                Catat Tekanan Darah
+              </Button>
+            </Link>
           </CardContent>
         </Card>
 
         <Card className="card-hover shadow-md border-imo-blue">
-          <CardHeader className="bg-gradient-to-r from-imo-blue to-blue-600 pb-2 text-white">
+          <CardHeader className="bg-imo-blue text-white pb-2">
             <CardTitle className="text-lg flex items-center gap-2">
               <PillIcon className="h-5 w-5" />
               Informasi Obat
@@ -105,12 +109,14 @@ const PatientDashboard = ({ user }: { user: any }) => {
             <p className="text-sm text-gray-600 mb-4">
               Akses informasi tentang obat hipertensi Anda.
             </p>
-            <Button 
-              className="w-full bg-imo-blue text-white hover:bg-blue-700"
-              onClick={handleViewMedInfo}
-            >
-              Lihat Informasi
-            </Button>
+            <Link to="/medication-info">
+              <Button 
+                className="w-full bg-imo-blue text-white hover:bg-blue-700"
+                onClick={handleViewMedInfo}
+              >
+                Lihat Informasi
+              </Button>
+            </Link>
           </CardContent>
         </Card>
       </div>

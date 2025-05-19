@@ -14,6 +14,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
+  users: User[];
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
   register: (name: string, email: string, password: string, role: UserRole) => Promise<boolean>;
@@ -23,7 +24,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 // Sample users for demonstration
-const sampleUsers: User[] = [
+const initialUsers: User[] = [
   { id: "1", name: "Pasien Demo", email: "pasien@example.com", role: "patient" },
   { id: "2", name: "Perawat Demo", email: "perawat@example.com", role: "nurse" },
   { id: "3", name: "Admin Demo", email: "admin@example.com", role: "admin" },
@@ -32,22 +33,33 @@ const sampleUsers: User[] = [
 // Provider component
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [users, setUsers] = useState<User[]>([]);
   
-  // Check for stored user on initial load
+  // Check for stored user and users list on initial load
   useEffect(() => {
     const storedUser = localStorage.getItem("imoUser");
+    const storedUsers = localStorage.getItem("imoUsers");
+    
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
+    
+    if (storedUsers) {
+      setUsers(JSON.parse(storedUsers));
+    } else {
+      // Initialize with sample users if no stored users
+      setUsers(initialUsers);
+      localStorage.setItem("imoUsers", JSON.stringify(initialUsers));
+    }
   }, []);
 
-  // Login function - simulated for now
+  // Login function
   const login = async (email: string, password: string): Promise<boolean> => {
-    // In a real app, this would make an API call
-    // For demo purpose, we'll use our sample users
-    const foundUser = sampleUsers.find(u => u.email === email);
+    // Find user with matching email
+    const foundUser = users.find(u => u.email.toLowerCase() === email.toLowerCase());
     
     if (foundUser) {
+      // Set the current user
       setUser(foundUser);
       localStorage.setItem("imoUser", JSON.stringify(foundUser));
       return true;
@@ -62,31 +74,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.removeItem("imoUser");
   };
 
-  // Register function - simulated for now
+  // Register function - add new user
   const register = async (
     name: string,
     email: string,
     password: string,
     role: UserRole
   ): Promise<boolean> => {
-    // In a real app, this would make an API call
-    // For demo purposes, we'll just return true
-    // and use the login function
+    // Check if email is already in use
+    if (users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+      toast.error("Email ini sudah digunakan");
+      return false;
+    }
     
-    // In a real app you would check if the email is already in use
+    // Create new user
     const newUser = {
-      id: String(sampleUsers.length + 1),
+      id: String(Date.now()),
       name,
       email,
       role,
     };
     
-    // In a real app, this would be done server-side
-    sampleUsers.push(newUser);
-    
-    // Auto login after registration
-    setUser(newUser);
-    localStorage.setItem("imoUser", JSON.stringify(newUser));
+    // Add to users list
+    const updatedUsers = [...users, newUser];
+    setUsers(updatedUsers);
+    localStorage.setItem("imoUsers", JSON.stringify(updatedUsers));
     
     return true;
   };
@@ -96,6 +108,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       value={{
         user,
         isAuthenticated: !!user,
+        users,
         login,
         logout,
         register,
@@ -114,3 +127,6 @@ export const useAuth = () => {
   }
   return context;
 };
+
+// Import toast for error messages
+import { toast } from "sonner";

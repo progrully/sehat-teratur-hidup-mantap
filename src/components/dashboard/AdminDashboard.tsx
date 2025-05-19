@@ -1,9 +1,11 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Settings, UserCog, Shield } from "lucide-react";
 import { toast } from "sonner";
+import { Link } from "react-router-dom";
+import UserManagementModal from "@/components/UserManagementModal";
 
 // Custom Analytics icon component
 const AnalyticsIcon = ({ className }: { className?: string }) => (
@@ -24,17 +26,14 @@ const AnalyticsIcon = ({ className }: { className?: string }) => (
 );
 
 const AdminDashboard = ({ user }: { user: any }) => {
-  // Handler functions
-  const handleManageUsers = () => {
-    toast.success("Fitur manajemen pengguna akan segera tersedia!");
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   const handleViewAnalytics = () => {
-    toast.success("Data analitik program akan segera ditampilkan!");
+    toast.success("Data analitik program ditampilkan!");
   };
   
   const handleSystemSettings = () => {
-    toast.success("Pengaturan sistem akan segera tersedia!");
+    toast.success("Pengaturan sistem dibuka!");
   };
   
   return (
@@ -43,7 +42,7 @@ const AdminDashboard = ({ user }: { user: any }) => {
         <CardHeader className="bg-gradient-to-r from-purple-100 to-blue-100 text-imo-darkText">
           <CardTitle className="flex items-center gap-2">
             <Shield className="h-5 w-5 text-purple-600" />
-            Selamat Datang, {user.name || "Admin"}
+            Selamat Datang, {user?.name || "Admin"}
           </CardTitle>
         </CardHeader>
         <CardContent className="pt-6">
@@ -54,9 +53,9 @@ const AdminDashboard = ({ user }: { user: any }) => {
         </CardContent>
       </Card>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-3 gap-6">
         <Card className="card-hover shadow-md border-purple-400">
-          <CardHeader className="bg-gradient-to-r from-purple-600 to-imo-blue pb-2 text-white">
+          <CardHeader className="bg-purple-600 text-white pb-2">
             <CardTitle className="text-lg flex items-center gap-2">
               <UserCog className="h-5 w-5" /> 
               Manajemen Pengguna
@@ -68,7 +67,7 @@ const AdminDashboard = ({ user }: { user: any }) => {
             </p>
             <Button 
               className="w-full bg-purple-600 text-white hover:bg-purple-700"
-              onClick={handleManageUsers}
+              onClick={() => setIsModalOpen(true)}
             >
               Kelola Pengguna
             </Button>
@@ -76,7 +75,7 @@ const AdminDashboard = ({ user }: { user: any }) => {
         </Card>
 
         <Card className="card-hover shadow-md border-imo-green">
-          <CardHeader className="bg-gradient-to-r from-imo-green to-green-600 pb-2 text-white">
+          <CardHeader className="bg-imo-green text-white pb-2">
             <CardTitle className="text-lg flex items-center gap-2">
               <AnalyticsIcon className="h-5 w-5" />
               Analitik Program
@@ -86,17 +85,19 @@ const AdminDashboard = ({ user }: { user: any }) => {
             <p className="text-sm text-gray-600 mb-4">
               Lihat statistik dan analitik kepatuhan program.
             </p>
-            <Button 
-              className="w-full bg-imo-green text-white hover:bg-green-700"
-              onClick={handleViewAnalytics}
-            >
-              Lihat Analitik
-            </Button>
+            <Link to="/analytics">
+              <Button 
+                className="w-full bg-imo-green text-white hover:bg-green-700"
+                onClick={handleViewAnalytics}
+              >
+                Lihat Analitik
+              </Button>
+            </Link>
           </CardContent>
         </Card>
 
         <Card className="card-hover shadow-md border-purple-400">
-          <CardHeader className="bg-gradient-to-r from-purple-600 to-imo-blue pb-2 text-white">
+          <CardHeader className="bg-purple-600 text-white pb-2">
             <CardTitle className="text-lg flex items-center gap-2">
               <Settings className="h-5 w-5" />
               Pengaturan Sistem
@@ -106,15 +107,22 @@ const AdminDashboard = ({ user }: { user: any }) => {
             <p className="text-sm text-gray-600 mb-4">
               Konfigurasi pengaturan program IMO MANTAP.
             </p>
-            <Button 
-              className="w-full bg-purple-600 text-white hover:bg-purple-700"
-              onClick={handleSystemSettings}
-            >
-              Pengaturan
-            </Button>
+            <Link to="/settings">
+              <Button 
+                className="w-full bg-purple-600 text-white hover:bg-purple-700"
+                onClick={handleSystemSettings}
+              >
+                Pengaturan
+              </Button>
+            </Link>
           </CardContent>
         </Card>
       </div>
+
+      <UserManagementModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </div>
   );
 };

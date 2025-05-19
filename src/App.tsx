@@ -9,6 +9,12 @@ import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import MedicationSchedule from "./pages/MedicationSchedule";
+import BloodPressure from "./pages/BloodPressure";
+import MedicationInfo from "./pages/MedicationInfo";
+import PatientList from "./pages/PatientList";
+import MedicationReminders from "./pages/MedicationReminders";
+import ComplianceReports from "./pages/ComplianceReports";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +29,12 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/medication-schedule" element={<MedicationSchedule />} />
+            <Route path="/blood-pressure" element={<BloodPressure />} />
+            <Route path="/medication-info" element={<MedicationInfo />} />
+            <Route path="/patient-list" element={<PatientList />} />
+            <Route path="/medication-reminders" element={<MedicationReminders />} />
+            <Route path="/compliance-reports" element={<ComplianceReports />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
