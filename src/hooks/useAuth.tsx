@@ -1,5 +1,6 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { toast } from "sonner";
 
 // Types for user and roles
 type UserRole = "patient" | "nurse" | "admin";
@@ -127,6 +128,3 @@ export const useAuth = () => {
   }
   return context;
 };
-
-// Import toast for error messages
-import { toast } from "sonner";

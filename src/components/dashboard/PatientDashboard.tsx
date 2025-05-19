@@ -2,7 +2,7 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar, Heart, PlusCircle } from "lucide-react";
+import { Calendar, Heart, PlusCircle, Bell } from "lucide-react";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
 
@@ -53,7 +53,7 @@ const PatientDashboard = ({ user }: { user: any }) => {
         </CardContent>
       </Card>
 
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-4 gap-6">
         <Card className="card-hover shadow-md border-imo-blue">
           <CardHeader className="bg-imo-blue text-white pb-2">
             <CardTitle className="text-lg flex items-center gap-2">
@@ -115,6 +115,27 @@ const PatientDashboard = ({ user }: { user: any }) => {
                 onClick={handleViewMedInfo}
               >
                 Lihat Informasi
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
+        
+        <Card className="card-hover shadow-md border-imo-green">
+          <CardHeader className="bg-imo-green text-white pb-2">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Bell className="h-5 w-5" />
+              Pengingat Obat
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pt-4">
+            <p className="text-sm text-gray-600 mb-4">
+              Atur dan kelola pengingat minum obat Anda.
+            </p>
+            <Link to="/medication-reminders">
+              <Button 
+                className="w-full bg-imo-green text-white hover:bg-green-700"
+              >
+                Pengingat Obat
               </Button>
             </Link>
           </CardContent>
